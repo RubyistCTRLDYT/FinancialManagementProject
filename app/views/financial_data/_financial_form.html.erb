@@ -16,7 +16,9 @@
 
     <p style="color:blue">Tips: Commit time can be null(default: time.now)</p>
     <%= f.label :commit_time %>
-    <%= f.text_field :commit_time, class: 'form-control' %>
+    <input class="form-control" type="text" value="<%= Time.now %>" 
+           name="financial_datum[commit_time]" id="financial_datum_commit_time" />
+    
     
     
     <%= f.submit yield(:button_text), class: "btn btn-primary" %>

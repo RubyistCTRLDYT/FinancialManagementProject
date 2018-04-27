@@ -5,7 +5,7 @@ class CreateFinancialData < ActiveRecord::Migration[5.1]
       t.string :details
       t.float :money
       t.string :note, default: "Null"
-      t.datetime :commit_time, default: Time.now
+      t.datetime :commit_time 
       t.references :user, foreign_key: true
 
       t.timestamps

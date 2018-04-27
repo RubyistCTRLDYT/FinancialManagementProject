@@ -1,22 +1,28 @@
 <% if logged_in? %>
     <div class="row">
-        <aside class="col-md-4">
-            <section class="user_info">
-                <h1>
-                    <%= link_to gravatar_for(current_user, size: 50), current_user %>
-                    <h1><%= current_user.name %></h1>
-                    <span><%= link_to "view my profile", current_user %></span>
-                </h1>
-                <div><%= render 'shared/user_info' %></div> 
-            </section>
-            <%= link_to "Create new data",  new_financial_datum_path, class: "btn btn-lg btn-primary" %>
-            <br><br> <br>
-            <%= link_to "All Financial data",   {:controller => "financial_data", :action => "index"}, class: "btn btn-lg btn-primary" %>
-            
-        </aside>
-        <div class="col-md-8">>
-            <%= column_chart FinancialDatum.group_by_day(:commit_time).where(user_id:current_user.id).sum(:money) %>
-            <%= column_chart FinancialDatum.group_by_day(:commit_time, format: "%a").where(user_id:current_user.id).sum(:money) %>
+        <h1 class='retroshadow_while'>Financial Data Report </h1>     
+        <div style = "border:1px solid #BBBBBB;">
+            <%= line_chart FinancialDatum.group(:description).group_by_week(:commit_time).
+                where(user_id: current_user.id).sum(:money), height: "380px" %>
+            <p align="center">This the last 7 days  (Includding all types)</p>            
+        </div>
+        <br><br><br><br>
+        <div style = "border:1px solid #BBBBBB;">
+            <%= pie_chart FinancialDatum.group(:description).
+            where(user_id: current_user.id).sum(:money), height: "350px" %>
+            <p align="center">All kinds of data in history  (percentage)</p>
+        </div>
+        <br><br><br><br>
+        <div style = "border:1px solid #BBBBBB;">                
+            <%= column_chart FinancialDatum.group_by_day(:commit_time, format: "%a").
+                where(user_id:current_user.id).sum(:money), height: "380px" %>
+            <p align="center">Money used in the last seven days  (Not includding types)</p>
+        </div>
+        <br><br><br><br>
+        <div style = "border:1px solid #BBBBBB;">                
+            <%= column_chart FinancialDatum.group_by_day(:commit_time).
+                where(user_id:current_user.id).sum(:money), height: "380px"  %>
+            <p align="center">Money used in a year  (Not includding types)</p>
         </div>
     </div>
 <% else %>
@@ -42,4 +48,4 @@
 
         <%= link_to image_tag("cat.png", alt: "cat logo"),
         '#' %>        
--->
+--> 
