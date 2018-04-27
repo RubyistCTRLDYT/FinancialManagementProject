@@ -1,0 +1,21 @@
+<% provide(:title, 'All financial data') %>
+<h1 class='retroshadow_while'>All Financial Data</h1>
+
+<br>
+<br>
+
+<table class="align-center" id="table-7">
+    <thead>
+        <th>Type</th>
+        <th>Details</th>
+        <th>Amount</th>
+        <th>Note</th>
+        <th>Time</th>
+        <th>Edit</th>      
+    </thead>
+    <%= render @financial_data %>
+</table>
+<%= render 'data_picture' %>
+<%= will_paginate %>
+    
+

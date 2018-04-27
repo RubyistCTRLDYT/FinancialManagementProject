@@ -1,5 +1,5 @@
 <div>
-    <%= form_for(@user) do |f| %>
+    <%= form_for(current_user) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <br>
         <br>
@@ -9,13 +9,17 @@
         <br>
         <br>
         <%= f.label :User_id %> &nbsp;
-        <%= @user.id %>
+        <%= current_user.id %>
         <br>
-        <%= f.label :name %> &nbsp;
-        <%= @user.name %>
+        <%= f.label :Name %> &nbsp;
+        <%= current_user.name %>
         <br>
-        <%= f.label :email %> &nbsp;
-        <%= @user.email %>
+        <%= f.label :Email %> &nbsp;
+        <%= current_user.email %>
+        <br>    
+        <%= f.label :Commit %> &nbsp;
+        <%= FinancialDatum.where(user_id: current_user.id).count %>
+        <br>
 
     <% end %>
 </div>

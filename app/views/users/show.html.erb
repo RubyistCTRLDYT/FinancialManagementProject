@@ -6,13 +6,19 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
-      <%= render 'shared/user_info' %>
+      <h5><%= render 'shared/user_info' %></h5>
+      
     </section>
+    <br><br> <br><br> 
+    <%= link_to "Create new data",  new_financial_datum_path, class: "btn btn-lg btn-primary" %>
+    <br><br> <br>
+    <%= link_to "All Financial data",   {:controller => "financial_data", :action => "index"}, class: "btn btn-lg btn-primary" %>
+    
   </aside>
 
   <div class="col-md-8">
-   
-    
-    
+      <%= render 'financial_data/data_picture' %>
+      <%= line_chart FinancialDatum.group(:description).group_by_day(:commit_time).where(user_id: @user.id).sum(:money), min: 3 %>
+      
   </div>
 </div>

@@ -1,0 +1,15 @@
+
+<tr>
+    <td><%= financial_datum.description %></td>
+    <td><%= financial_datum.details %></td>
+    <td><%= financial_datum.money %></td>
+    <td><%= financial_datum.note %></td>
+    <td><%= financial_datum.commit_time %></td>
+    <td><%= link_to "Edit", edit_financial_datum_path(financial_datum),
+        data: { confirm: "You sure?" }, id: "edit" %> |
+        <%= link_to "Delete", financial_datum, method: :delete,
+        data: { confirm: "You sure?" }, id: "delete" %>
+        
+    </td>
+    
+</tr>

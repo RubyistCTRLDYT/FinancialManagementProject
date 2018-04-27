@@ -6,15 +6,25 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(name: "Example User",
-             email: "example@railstutorial.org",
-             password: "foobar",
-             password_confirmation: "foobar",
-             admin: true,
-             activated: true,
-             activated_at: Time.zone.now)
+user = User.create!(name: "Example User",
+                    email: "example@railstutorial.org",
+                    password: "foobar",
+                    password_confirmation: "foobar",
+                    admin: true,
+                    activated: true,
+                    activated_at: Time.zone.now)
+keys = FinancialDatum.kinds.keys
+100.times do |n|
+    dec = keys[rand(0..4)]
+    FinancialDatum.create!(kind: dec,
+                           description: dec,
+                           money: rand(1..99),
+                           details: "example-#{rand(1..99)+1}", 
+                           commit_time: Time.now + n.day, 
+                           user_id: 1)
+    end
 
-    29.times do |n|
+29.times do |n|
     name = Faker::Name.name
     email = "example-#{n+1}@railstutorial.org"
     password = "password"

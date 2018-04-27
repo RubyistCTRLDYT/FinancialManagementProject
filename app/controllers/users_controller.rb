@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @financial_datum = @user.financial_data
   end
 
   def create
@@ -47,6 +48,7 @@ class UsersController < ApplicationController
     end
   end
 
+=begin
   # 确保用户已登录
   def logged_in_user
     #如果 logged_in? 返回真 返回
@@ -57,6 +59,7 @@ class UsersController < ApplicationController
       redirect_to login_url
     end
   end
+=end
 
   # 确保是正确的用户
   def correct_user

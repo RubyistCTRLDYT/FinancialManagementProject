@@ -1,0 +1,1 @@
+<%= pie_chart FinancialDatum.group(:description).where(user_id: current_user.id).sum(:money) %>

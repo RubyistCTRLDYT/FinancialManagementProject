@@ -288,3 +288,34 @@ input {
     position:relative;
     left:38%;
 }
+
+/* Table Head */
+#table-7 thead th {
+    background-color: rgb(81, 130, 187);
+    color: #fff;
+    border-bottom-width: 0;
+    }
+    
+    /* Column Style */
+    #table-7 td {
+    color: #000;
+    }
+    /* Heading and Column Style */
+    #table-7 tr, #table-7 th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(81, 130, 187);
+    }
+    
+    /* Padding and font style */
+    #table-7 td, #table-7 th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+}
+
+.align-center{ 
+    margin:0 auto; /* 居中 这个是必须的，，其它的属性非必须 */ 
+    width:800px; /* 给个宽度 顶到浏览器的两边就看不出居中效果了 */ 
+}
