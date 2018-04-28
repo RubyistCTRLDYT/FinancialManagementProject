@@ -9,10 +9,12 @@
       <h5><%= render 'shared/user_info' %></h5>
       
     </section>
-    <%= link_to "Create new data",  new_financial_datum_path %>
-    <br><br>
-    <%= link_to "All Financial data",   {:controller => "financial_data", :action => "index"} %>
-    <br><br> <br>
+    <% if current_user?(@user) %>
+      <%= link_to "Create new data",  new_financial_datum_path %>
+      <br><br>
+      <%= link_to "All Financial data",   {:controller => "financial_data", :action => "index"} %>
+    <% end %>
+      <br><br> <br>
     <br><br> <br>
     <br><br> <br>  
     <br><br> <br>
@@ -21,8 +23,7 @@
   </aside>
 
   <div class="col-md-9">
-      <%= render 'financial_data/data_picture' %>
-      <%= line_chart FinancialDatum.group(:description).group_by_week(:commit_time).where(user_id: @user.id).sum(:money), min: 1 %>
-      
+    <%= pie_chart FinancialDatum.group(:description).where(user_id: @user.id).sum(:money) %>
+    <%= line_chart FinancialDatum.group(:description).group_by_week(:commit_time).where(user_id: @user.id).sum(:money), min: 1 %>  
   </div>
 </div>
