@@ -16,7 +16,7 @@
 
     <p style="color:blue">Tips: Commit time can be null(default: time.now)</p>
     <%= f.label :commit_time %>
-    <input class="form-control" type="text" value="<%= Time.now %>" 
+    <input class="form-control" type="text" value="<%= Time.zone.now  %>" 
            name="financial_datum[commit_time]" id="financial_datum_commit_time" />
     
     
