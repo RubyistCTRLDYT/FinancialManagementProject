@@ -1,0 +1,61 @@
+<h1 class='retroshadow_while'>Financial Data Report </h1>     
+<div style = "border:1px solid #BBBBBB;">
+    <%= line_chart FinancialDatum.group(:description).
+        group_by_week(:commit_time).
+        where(user_id: current_user.id).sum(:money), height: "380px" %>
+    <p align="center">Money used in the last few months  (Includding income and outgo)</p>            
+</div>
+<br><br><br><br>
+<div style = "border:1px solid #BBBBBB;">                
+    <%= column_chart FinancialDatum.chart_outgo(FinancialDatum.group(:description).
+        group_by_month(:commit_time, format: "%B").
+        where("user_id = ? and money < ?", current_user.id, 0).sum(:money)), height: "380px" %>
+    <p align="center">Money used in the last few months (Outgo)</p>
+</div>
+<br><br><br><br>
+<div class="row" style = "border:1px solid #BBBBBB;">
+   <div class= "col-md-6">
+        <%= pie_chart FinancialDatum.group(:description).
+        where("user_id = ? and money > ?", current_user.id, 0).sum(:money), height: "350px" %>
+        <p align="center">Money used in history  (percentage,Income)</p>
+   </div>
+   <div class= "col-md-6">
+        <%= pie_chart FinancialDatum.chart_outgo(FinancialDatum.group(:description).
+        where("user_id = ? and money < ?", current_user.id, 0).sum(:money)), height: "350px" %>
+        <p align="center">Money used in history  (percentage,Outgo)</p>
+   </div>
+</div>
+<br><br><br><br>
+<div style = "border:1px solid #BBBBBB;">
+    <%= line_chart FinancialDatum.group(:description).
+        group_by_day(:commit_time, format: "%b-%d-%a").
+        where("user_id = ? and commit_time < ? and commit_time > ?", current_user.id, 1.days.ago, 8.days.ago).
+        sum(:money), height: "380px" %>
+    <p align="center">All kinds of data in last 7 days  (Includding income and outgo)</p>            
+</div>
+<br><br><br><br>
+<div style = "border:1px solid #BBBBBB;">
+    <%= column_chart FinancialDatum.chart_outgo(FinancialDatum.group(:description).
+    group_by_day(:commit_time, format: "%b-%d-%a").
+    where("user_id = ? and commit_time < ? and commit_time > ? and money < ?", 
+    current_user.id, 1.days.ago, 8.days.ago, 0).
+    sum(:money)), height: "380px" %>
+    <p align="center">All kinds of data last 7 days (Outgo)</p>            
+</div>
+<br><br><br><br>
+<div style = "border:1px solid #BBBBBB;">
+    <%= line_chart FinancialDatum.group(:description).
+        group_by_day(:commit_time, format: "%b-%d-%a").
+        where("user_id = ? and commit_time < ? and commit_time > ?", current_user.id, 1.days.ago, 31.days.ago).
+        sum(:money), height: "380px" %>
+    <p align="center">All kinds of data in last 30 days (Includding income and outgo)</p>            
+</div>
+<br><br><br><br>
+<div style = "border:1px solid #BBBBBB;">
+    <%= column_chart FinancialDatum.chart_outgo(FinancialDatum.group(:description).
+    group_by_day(:commit_time, format: "%b-%d-%a").
+    where("user_id = ? and commit_time < ? and commit_time > ? and money < ?", 
+    current_user.id, 1.days.ago, 31.days.ago, 0).
+    sum(:money)), height: "380px", min: 0 %>
+    <p align="center">All kinds of data in last 30 days (Outgo)</p>            
+</div>

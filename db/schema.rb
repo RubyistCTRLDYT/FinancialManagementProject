@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180426200213) do
     t.string "details"
     t.float "money"
     t.string "note", default: "Null"
-    t.datetime "commit_time", default: "2018-04-27 08:26:33"
+    t.datetime "commit_time"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

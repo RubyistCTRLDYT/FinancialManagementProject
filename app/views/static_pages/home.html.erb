@@ -1,29 +1,6 @@
 <% if logged_in? %>
     <div class="row">
-        <h1 class='retroshadow_while'>Financial Data Report </h1>     
-        <div style = "border:1px solid #BBBBBB;">
-            <%= line_chart FinancialDatum.group(:description).group_by_week(:commit_time).
-                where(user_id: current_user.id).sum(:money), height: "380px" %>
-            <p align="center">This the last 7 days  (Includding all types)</p>            
-        </div>
-        <br><br><br><br>
-        <div style = "border:1px solid #BBBBBB;">
-            <%= pie_chart FinancialDatum.group(:description).
-            where(user_id: current_user.id).sum(:money), height: "350px" %>
-            <p align="center">All kinds of data in history  (percentage)</p>
-        </div>
-        <br><br><br><br>
-        <div style = "border:1px solid #BBBBBB;">                
-            <%= column_chart FinancialDatum.group_by_day(:commit_time, format: "%a").
-                where(user_id:current_user.id).sum(:money), height: "380px" %>
-            <p align="center">Money used in the last seven days  (Not includding types)</p>
-        </div>
-        <br><br><br><br>
-        <div style = "border:1px solid #BBBBBB;">                
-            <%= column_chart FinancialDatum.group_by_day(:commit_time).
-                where(user_id:current_user.id).sum(:money), height: "380px"  %>
-            <p align="center">Money used in a year  (Not includding types)</p>
-        </div>
+        <%= render 'shared/pictorial_statement' %>
     </div>
 <% else %>
     <div class="center jumbotron">

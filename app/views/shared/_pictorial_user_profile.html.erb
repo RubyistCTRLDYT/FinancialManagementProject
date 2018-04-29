@@ -1,0 +1,32 @@
+<h1 class='retroshadow_while'>Fund pictorial Report </h1>  
+<br>   
+<div>
+    <%= area_chart FinancialDatum.group_by_day(:commit_time).
+       where("user_id = ? and commit_time < ? and commit_time > ?", 
+       @user.id, 1.days.ago, 8.days.ago).
+       sum(:money), height: "380px", width: "900px" %>
+    <p align="center">Money used in the last 7 days  (Includding income and outgo)</p>            
+</div>
+<br><br><br><br>
+<div>               
+    <%= area_chart FinancialDatum.group_by_day(:commit_time, format: "%d-%b-%a").
+       where("user_id = ? and commit_time < ? and commit_time > ?", 
+       @user.id, 1.days.ago, 31.days.ago).
+       sum(:money), height: "380px" , width: "900px"%>
+    <p align="center">Money used in the last 30 days (Includding income and outgo)</p>
+</div>
+<br><br><br><br>
+<div>               
+    <%= area_chart FinancialDatum.group_by_month(:commit_time).
+       where("user_id = ?", @user.id).
+       sum(:money), height: "380px", width: "900px" %>
+    <p align="center">Money used in this year (Includding income and outgo)</p>
+</div>
+<br><br><br><br>
+<div>               
+    <%= area_chart FinancialDatum.group_by_day(:commit_time).
+       where("user_id = ?", @user.id).
+       sum(:money), height: "380px", width: "900px" %>
+    <p align="center">Money used in this year (Includding income and outgo)</p>
+</div>
+<br><br><br><br>

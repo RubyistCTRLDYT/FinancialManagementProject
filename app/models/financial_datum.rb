@@ -13,7 +13,14 @@ class FinancialDatum < ApplicationRecord
   validates :kind, inclusion: kinds.keys ,presence: true, length: { maximum: 50 }
   
 
-    
+  
+  def self.chart_outgo(hash_pass)
+    outcome = hash_pass
+    temp = Hash.new
+    outcome.map do |key,value|
+      temp[key] = (-1) * value
+    end
+    return temp
+  end
 
- 
 end

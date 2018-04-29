@@ -1,25 +1,108 @@
-<div>
-    <%= form_for(current_user) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <br>
-        <br>
-        <br>
-        <br>
-        <%= f.label :User_information %>
-        <br>
-        <br>
-        <%= f.label :User_id %> &nbsp;
-        <%= current_user.id %>
-        <br>
-        <%= f.label :Name %> &nbsp;
-        <%= current_user.name %>
-        <br>
-        <%= f.label :Email %> &nbsp;
-        <%= current_user.email %>
-        <br>    
-        <%= f.label :Commit %> &nbsp;
-        <%= FinancialDatum.where(user_id: current_user.id).count %>
-        <br>
 
+
+<section class="user_info">
+    <h1><%= gravatar_for @user %></h1>
+    <h1><%= @user.name %></h1> 
+    <h2 class='retroshadow_while'><%= @user.email %></h1>  
+</section>
+
+
+<div>
+    <% if current_user?(@user) %>
+    &nbsp;&nbsp;
+    <%= link_to "Create new data",  new_financial_datum_path %>
+    &nbsp;&nbsp;
+    <%= link_to "All Financial data",   {:controller => "financial_data", :action => "index"} %>
     <% end %>
+</div>
+
+<br>
+
+<div>     
+    <table width="260" id="table-7" >
+        <thead>
+            <th>Information</th>
+            <th>User Data</th>  
+        </thead>            
+        <tr>
+            <td>User ID</td>
+            <td><%= @user.id %></td>
+        </tr>
+        <tr>
+            <td>User Name</td>
+            <td><%= @user.name %></td>
+        </tr>
+         <tr>
+            <td>User Commit</td>
+            <td><%= FinancialDatum.where(user_id: @user.id).count %></td>
+        </tr>   
+        <tr>
+            <td>Aggregate amount</td>
+            <td><%= FinancialDatum.where(user_id: @user.id).sum(:money) %></td>
+        </tr>
+        <tr>
+            <td>Max amount</td>
+            <td><%= FinancialDatum.where(user_id: @user.id).maximum(:money) %></td>
+        </tr>
+        <tr>
+            <td>Min amount</td>
+            <td><%= FinancialDatum.where(user_id: @user.id).minimum(:money) %></td>
+        </tr>
+        <tr>
+            <td>7 days/max</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 8.days.ago).
+                maximum(:money)) %>
+            </td>
+        </tr>
+        <tr>
+            <td>7 days/min</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 8.days.ago).
+                minimum(:money)) %>
+            </td>
+        </tr>
+        <tr>
+            <td>7 days/per</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 8.days.ago).
+                sum(:money)) / 7 %>
+            </td>
+        </tr>   
+        <tr>
+            <td>7 days/sum</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 8.days.ago).
+                sum(:money)) %>
+            </td>
+        </tr>
+        <tr>
+            <td>30 days/max</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 31.days.ago).
+                maximum(:money)) %>
+            </td>
+        </tr>
+        <tr>
+            <td>30 days/min</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 31.days.ago).
+                minimum(:money)) %>
+            </td>
+        </tr>  
+        <tr>
+            <td>30 days/per</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 31.days.ago).
+                sum(:money)) / 30 %>
+            </td>
+        </tr>
+        <tr>
+            <td>30 days/sum</td>
+            <td><%= (FinancialDatum.where("user_id = ? and commit_time < ? and commit_time > ?", 
+                @user.id, 1.days.ago, 31.days.ago).
+                sum(:money)) %>
+            </td>
+        </tr>                           
+    </table>
 </div>

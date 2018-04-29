@@ -1,29 +1,10 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside style = "border-right:1px solid #BBBBBB;" class="col-md-3">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-      <h5><%= render 'shared/user_info' %></h5>
-      
-    </section>
-    <% if current_user?(@user) %>
-      <%= link_to "Create new data",  new_financial_datum_path %>
-      <br><br>
-      <%= link_to "All Financial data",   {:controller => "financial_data", :action => "index"} %>
-    <% end %>
-      <br><br> <br>
-    <br><br> <br>
-    <br><br> <br>  
-    <br><br> <br>
-    <br><br> <br>
-    
+  <aside class="col-md-3">
+    <h5><%= render 'shared/user_info' %></h5>
   </aside>
 
   <div class="col-md-9">
-    <%= pie_chart FinancialDatum.group(:description).where(user_id: @user.id).sum(:money) %>
-    <%= line_chart FinancialDatum.group(:description).group_by_week(:commit_time).where(user_id: @user.id).sum(:money), min: 1 %>  
+    <%= render 'shared/pictorial_user_profile' %>
   </div>
 </div>

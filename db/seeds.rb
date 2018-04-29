@@ -14,15 +14,30 @@ user = User.create!(name: "Example User",
                     activated: true,
                     activated_at: Time.zone.now)
 keys = FinancialDatum.kinds.keys
+
 100.times do |n|
-    dec = keys[rand(0..4)]
-    FinancialDatum.create!(kind: dec,
-                           description: dec,
-                           money: rand(1..99),
-                           details: "example-#{rand(1..99)+1}", 
-                           commit_time: Time.now + n.day, 
-                           user_id: 1)
+    keys.each do |key|
+        dec = key
+        FinancialDatum.create!(kind: dec,
+                            description: dec,
+                            money: rand(0..99),
+                            details: "example-#{rand(1..99)+1}", 
+                            commit_time: Time.now - 31.days + n.day, 
+                            user_id: 1)
     end
+end
+
+100.times do |n| 
+    keys.each do |key|
+        dec = key
+        FinancialDatum.create!(kind: dec,
+                               description: dec,
+                               money: rand(-99..0),
+                               details: "example-#{(rand(-99..0)-1)}", 
+                               commit_time: Time.now - 31.days + n.day, 
+                               user_id: 1)
+    end
+end
 
 29.times do |n|
     name = Faker::Name.name
