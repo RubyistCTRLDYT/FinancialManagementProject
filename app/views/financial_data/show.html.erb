@@ -1,0 +1,28 @@
+<h1 class='retroshadow_while'>Search data</h1>
+
+<div align="center" class = "row">
+    <div class="col-md-8 col-md-offset-2">
+        <%= form_for(@financial_datum, as: :post, url: financial_data_search_path(@financial_datum), method: :post) do |f| %>
+            <p style="color:blue">Tips: Please input a vaild time, Example: <%= Time.zone.now%> </p>
+            <%= search_field_tag 'commit_time', Time.zone.now.strftime("%Y-%m-%d") , class: 'form-control search' %>
+            <%= f.submit "Search" , class: "btn btn-primary" %>
+        <% end %>
+    </div>
+    
+</div>
+<br>
+
+<% if @financial_data %>
+    <table class="align-center" id="table-7">
+            <thead>
+                <th>Type</th>
+                <th>Details</th>
+                <th>Amount</th>
+                <th>Note</th>
+                <th>Time</th>
+                <th>Edit</th>      
+            </thead>
+            <%= render @financial_data %>
+    </table>
+    <%= will_paginate %>
+<% end %>

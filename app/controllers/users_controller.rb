@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @financial_datum = @user.financial_data
+    
   end
 
   def create

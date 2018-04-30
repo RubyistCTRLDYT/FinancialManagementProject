@@ -11,7 +11,7 @@ class FinancialDatum < ApplicationRecord
   validates :details, presence: true, length: { maximum: 50 }
   validates :money, numericality: true, presence: true, length: { maximum: 50 }
   validates :kind, inclusion: kinds.keys ,presence: true, length: { maximum: 50 }
-  
+  validates :commit_time,presence: true, length: { maximum: 50 }
 
   
   def self.chart_outgo(hash_pass)
